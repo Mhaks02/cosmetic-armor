@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.7-SNAPSHOT'
+	id 'fabric-loom' version '1.11-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -7,7 +7,7 @@ version = project.mod_version
 group = project.maven_group
 
 base {
-	archivesName = project.archives_base_name
+	archivesName = project.archives_base_name + "-" + project.minecraft_version
 }
 
 repositories {
@@ -19,6 +19,7 @@ repositories {
 		name = "TerraformersMC"
 		url = "https://maven.terraformersmc.com/"
 	}
+    mavenLocal()
 }
 
 dependencies {
@@ -31,7 +32,7 @@ dependencies {
 	modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.0") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
-	modImplementation "dev.emi:trinkets:${trinkets_version}"
+	include(modApi("dev.emi:trinkets:${trinkets_version}"))
 }
 
 processResources {
@@ -43,7 +44,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+	it.options.release = 21
 }
 
 java {
@@ -52,8 +53,8 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
