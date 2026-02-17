@@ -18,7 +18,7 @@ import java.util.Optional;
 
 public class CosmeticArmor implements ModInitializer {
 
-	public static final String MODID = "cosmetic-armor";
+	public static final String MODID = "cosmeticarmor";
 
 	public static final TagKey<Item> BLACKLIST = TagKey.of(RegistryKeys.ITEM, id("blacklist"));
 	public static final TagKey<Item> ALWAYS_VISIBLE = TagKey.of(RegistryKeys.ITEM, id("always_visible"));

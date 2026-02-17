@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.11-SNAPSHOT'
+	id 'fabric-loom' version '1.15-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -7,19 +7,36 @@ version = project.mod_version
 group = project.maven_group
 
 base {
-	archivesName = project.archives_base_name + "-" + project.minecraft_version
+	archivesName = project.archives_base_name + "+" + project.minecraft_version
 }
 
 repositories {
 	maven {
-		name = 'Ladysnake Mods'
+		name = 'Ladysnake Libs'
 		url = 'https://maven.ladysnake.org/releases'
 	}
 	maven {
 		name = "TerraformersMC"
 		url = "https://maven.terraformersmc.com/"
 	}
-    mavenLocal()
+	maven {
+		name = "Nucleoid"
+		url = 'https://maven.nucleoid.xyz/releases'
+		metadataSources {
+			artifact()
+		}
+	}
+	exclusiveContent {
+		forRepository {
+			maven {
+				name = "Modrinth"
+				url = "https://api.modrinth.com/maven"
+			}
+		}
+		filter {
+			includeGroup "maven.modrinth"
+		}
+	}
 }
 
 dependencies {
@@ -27,12 +44,11 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+	modApi include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}")
+	modApi include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}")
 
-	modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.0") {
-		exclude(group: "net.fabricmc.fabric-api")
-	}
-	include(modApi("dev.emi:trinkets:${trinkets_version}"))
+	modImplementation "maven.modrinth:trinkets-canary:${project.trinkets_version}"
 }
 
 processResources {
