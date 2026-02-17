@@ -5,7 +5,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.*;
@@ -18,7 +17,7 @@ import java.util.Optional;
 
 public class CosmeticArmor implements ModInitializer {
 
-	public static final String MODID = "cosmetic-armor";
+	public static final String MODID = "cosmeticarmor";
 
 	public static final TagKey<Item> BLACKLIST = TagKey.of(RegistryKeys.ITEM, id("blacklist"));
 	public static final TagKey<Item> ALWAYS_VISIBLE = TagKey.of(RegistryKeys.ITEM, id("always_visible"));
