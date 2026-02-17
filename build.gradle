@@ -19,13 +19,6 @@ repositories {
 		name = "TerraformersMC"
 		url = "https://maven.terraformersmc.com/"
 	}
-	maven {
-		name = "Nucleoid"
-		url = 'https://maven.nucleoid.xyz/releases'
-		metadataSources {
-			artifact()
-		}
-	}
 	exclusiveContent {
 		forRepository {
 			maven {
