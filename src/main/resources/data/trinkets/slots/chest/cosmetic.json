@@ -2,7 +2,7 @@
   "replace": false,
   "amount": 1,
   "order": 0,
-  "icon": "cosmeticarmor:slots/cosmetic_chest",
+  "icon": "cosmeticarmor:container/slots/cosmetic_chest",
   "validator_predicates": [
     "cosmeticarmor:chest"
   ],
