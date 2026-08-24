@@ -9,7 +9,6 @@ import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -49,20 +48,24 @@ public class CosmeticArmor implements ModInitializer {
 
 	public static ItemStack getCosmeticArmor(LivingEntity entity, EquipmentSlot slot) {
 		Optional<TrinketAttachment> component = Optional.ofNullable(TrinketsApi.getAttachment(entity));
-		if(component.isPresent()) {
-			List<Tuple<TrinketSlotAccess, ItemStack>> list = component.get().getEquipped(stack -> entity.getEquipmentSlotForItem(stack) == slot);
+		if (component.isPresent()) {
+			List<TrinketSlotAccess> list = component.get()
+				.equipped(stack -> entity.getEquipmentSlotForItem(stack) == slot, false);
 
-			for(Tuple<TrinketSlotAccess, ItemStack> equipped : list) {
-				SlotType slotType = equipped.getA().inventory().slotType();
-				if(!slotType.name().equals("cosmetic")) {
+			for (TrinketSlotAccess equipped : list) {
+				SlotType slotType = equipped.inventory().slotType();
+				String name = slotType.getId().substring(slotType.group().length() + 1);
+				if(!name.equals("cosmetic")) {
 					continue;
 				}
 				if(!slotType.group().equalsIgnoreCase(slot.getName())) {
 					continue;
 				}
-				return equipped.getB();
+
+				return equipped.get();
 			}
 		}
+
 		return ItemStack.EMPTY;
 	}
 
